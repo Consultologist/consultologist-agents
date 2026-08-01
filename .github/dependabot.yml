@@ -16,3 +16,13 @@ updates:
     commit-message:
       prefix: "Bump"
     labels: []
+    ignore:
+      # Azure maintains the v1 TAG by moving it forward, but their last GitHub
+      # Release was published in 2021. Dependabot resolves releases, not tags,
+      # so every proposal for this action is a three-and-a-half-year downgrade
+      # (Consultologist/Consultologist#17).
+      #
+      # The cost is real: no Dependabot updates for this action at all, so a
+      # genuine new release needs noticing by hand. Acceptable only while the
+      # release feed stays dead and the tag is what moves.
+      - dependency-name: "Azure/static-web-apps-deploy"
