@@ -1,9 +1,9 @@
 {
   "type": "object",
   "additionalProperties": false,
-  "required": ["concepts"],
+  "required": ["findings"],
   "properties": {
-    "concepts": {
+    "findings": {
       "type": "array",
       "items": {
         "type": "object",
