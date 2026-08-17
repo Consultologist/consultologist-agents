@@ -60,6 +60,23 @@ jobs:
             fi
             ./scripts/publish-agent-definition.sh "$REGISTRY_ACCOUNT" "$NAME"
           done
+      # #374: the last gate before an IMMUTABLE upload. validate.yml answers
+      # this on the pull request; this repeats it here so a stranding refuses the
+      # publish rather than being reported after the version exists forever.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        if: contains(steps.diff.outputs.changed, 'agents/output-contracts.json')
+        with:
+          repository: Consultologist/Consultologist-Blazor
+          submodules: true
+          path: engine
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        if: contains(steps.diff.outputs.changed, 'agents/output-contracts.json')
+        with:
+          dotnet-version: "10.0.x"
+      - name: This catalog would strand no published package
+        if: contains(steps.diff.outputs.changed, 'agents/output-contracts.json')
+        timeout-minutes: 10
+        run: dotnet run -v q --file engine/scripts/check-catalog-strands-packages.cs -- agents
       - name: Publish catalog if changed
         if: contains(steps.diff.outputs.changed, 'agents/output-contracts.json')
         run: ./scripts/publish-output-contracts.sh "$REGISTRY_ACCOUNT"

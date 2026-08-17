@@ -42,3 +42,25 @@ jobs:
                   assert os.path.exists(os.path.join("agents", sf)), f"{cid}: missing {sf}"
           print(f"catalog {c['version']}: OK ({', '.join(c['contracts'])})")
           PY
+      # #374: a published package version is immutable, but whether it still
+      # LOADS is not — the package carries a copy of each schema and the engine
+      # re-matches it against the live catalog on every load. Changing a contract
+      # can therefore stop an already-published package loading, reported as
+      # "registry unavailable", with a new package version the only remedy.
+      #
+      # Merging here IS the publish, so this has to be answered on the pull
+      # request. It runs after the parse check on purpose: a catalog that does
+      # not parse is reported far better there.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: Consultologist/Consultologist-Blazor
+          submodules: true
+          path: engine
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: "10.0.x"
+      - name: This catalog would strand no published package
+        # A guard, not a budget: a cold build plus a handful of anonymous blob
+        # reads.
+        timeout-minutes: 10
+        run: dotnet run -v q --file engine/scripts/check-catalog-strands-packages.cs -- agents
