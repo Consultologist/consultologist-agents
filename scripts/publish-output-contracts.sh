@@ -54,6 +54,11 @@ for e in json.load(open('$CATALOG'))['contracts'].values():
 		--file "$AGENTS_DIR/$SCHEMA" --name "$VERSION/$SCHEMA" --output none
 done
 
+# The licence travels with the version (#399).
+echo "Uploading $VERSION/LICENSE"
+az storage blob upload "${AUTH[@]}" --container-name "$CONTAINER" \
+	--file "$(dirname "$0")/../LICENSE" --name "$VERSION/LICENSE" --output none
+
 echo "Uploading $VERSION/output-contracts.json"
 az storage blob upload "${AUTH[@]}" --container-name "$CONTAINER" \
 	--file "$CATALOG" --name "$VERSION/output-contracts.json" --output none
