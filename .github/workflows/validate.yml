@@ -23,7 +23,7 @@ jobs:
           assert m.get("definition"), "missing definition"
           print(f"{m['name']} v{m['version']}: parses")
           PY
-            REDACTED=$(sed -e '/server_url:/d' -e '/project_connection_id:/d' "$YAML")
+            REDACTED=$(sed '/^[[:space:]]*server_url:/d; /^[[:space:]]*project_connection_id:/d' "$YAML")
             if echo "$REDACTED" | grep -qE "server_url|project_connection_id"; then
               echo "::error::$YAML still contains plumbing after redaction"
               exit 1
@@ -34,7 +34,7 @@ jobs:
           python3 - << 'PY'
           import json, os, re
           c = json.load(open("agents/output-contracts.json"))
-          assert re.fullmatch(r"v\d{4}\.\d{2}\.[1-9]\d*", c["version"]), f"bad catalog version {c['version']}"
+          assert re.fullmatch(r"v\d{4}\.(0[1-9]|1[0-2])\.[1-9]\d*", c["version"]), f"bad catalog version {c['version']}"
           for cid, entry in c["contracts"].items():
               assert entry.get("agentName") and entry.get("agentVersion"), f"{cid}: missing agent identity"
               sf = entry.get("schemaFile")
