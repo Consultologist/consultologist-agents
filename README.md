@@ -41,3 +41,19 @@ either, git is the single channel and drift is detectable by construction.
 
 CI authenticates via GitHub→Azure OIDC (no stored secrets); human registry
 writes are retired.
+
+## Licence
+
+The content in this repository — the agent definitions and the output-contract
+catalog with its schemas — is licensed **[CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)**
+— © 2026 Tauheed Elahee: read, cite, modify for research and trial, share
+alike, with attribution; not for commercial use *under this licence*. A
+workflow package copies a catalog schema into its own files; the copy carries
+the same permission, and the same broader terms inside the Consultologist app
+(commercial use there, the user's own copyright in their fork — governed by
+the app's terms of use, not this file). The licence file travels with every
+published version from the first publish after 2026-08-25.
+
+Not reached: the engine (PolyForm Strict), the Foundry deployment behind a
+definition, any patent, any trademark. GitHub shows "Other": it classifies no
+NonCommercial licence.

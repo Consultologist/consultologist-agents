@@ -49,6 +49,11 @@ if grep -qE 'server_url|project_connection_id' "$REDACTED"; then
 	exit 1
 fi
 
+# The licence travels with the version (#399).
+echo "Uploading $NAME/$VERSION/LICENSE"
+az storage blob upload "${AUTH[@]}" --container-name "$CONTAINER" \
+	--file "$(dirname "$0")/../LICENSE" --name "$NAME/$VERSION/LICENSE" --output none
+
 echo "Uploading $NAME/$VERSION/definition.yaml (redacted)"
 az storage blob upload "${AUTH[@]}" --container-name "$CONTAINER" \
 	--file "$REDACTED" --name "$NAME/$VERSION/definition.yaml" --output none

@@ -10,6 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      # #399: the licence uploads with every version, so it has to be here.
+      - name: The licence is present
+        run: |
+          test -f LICENSE && head -1 LICENSE | grep -q "Attribution-NonCommercial-ShareAlike 4.0 International"
+
       - name: Manifests parse, versions present, redaction is clean
         run: |
           set -euo pipefail
