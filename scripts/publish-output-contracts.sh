@@ -27,7 +27,7 @@ ACCOUNT="$1"
 
 VERSION=$(python3 -c "import json;print(json.load(open('$CATALOG'))['version'])")
 
-if ! [[ "$VERSION" =~ ^v[0-9]{4}\.[0-9]{2}\.[1-9][0-9]*$ ]]; then
+if ! [[ "$VERSION" =~ ^v[0-9]{4}\.(0[1-9]|1[0-2])\.[1-9][0-9]*$ ]]; then
 	echo "error: catalog version '$VERSION' is not vYYYY.MM.N" >&2
 	exit 1
 fi

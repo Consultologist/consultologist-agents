@@ -3,9 +3,10 @@
 # Foundry version sequence (the version the YAML itself declares — the same
 # number job records store in agentVersions). Published versions are immutable:
 # this script refuses to overwrite. The redaction strips the tool plumbing
-# (tools[].server_url, project_connection_id) and must stay line-for-line
-# equivalent to AgentDefinitionRedaction.Redact — startup attestation compares
-# the published artifact to Redact(bundled manifest) and fails loud on drift.
+# (tools[].server_url, project_connection_id) — the sed below is the
+# definition of "redacted", and validate.yml's copy must match it line for
+# line (registry-layout.md § 8 in consultologist-provenance). No engine-side
+# check recompares the published artifact against the git manifest.
 #
 # Usage:
 #   ./scripts/publish-agent-definition.sh <storage-account> <agent-name>
