@@ -49,10 +49,15 @@ catalog with its schemas — is licensed **[CC BY-NC-SA 4.0](https://creativecom
 — © 2026 Tauheed Elahee: read, cite, modify for research and trial, share
 alike, with attribution; not for commercial use *under this licence*. A
 workflow package copies a catalog schema into its own files; the copy carries
-the same permission, and the same broader terms inside the Consultologist app
-(commercial use there, the user's own copyright in their fork — governed by
-the app's terms of use, not this file). The licence file travels with every
-published version from the first publish after 2026-08-25.
+the same permission. The licence file travels with every published version
+from the first publish after 2026-08-25.
+
+**Consultologist clients hold a licence that goes beyond this one.** Every
+client may use these definitions and schemas, and the packages that copy them, commercially — inside the app, and in their own
+environment outside it — and holds the copyright in what they author. That
+permission is part of the client agreement, not this file; this licence is
+the public default for everyone else. Anyone who needs more than it grants
+can ask.
 
 Not reached: the engine (PolyForm Strict), the Foundry deployment behind a
 definition, any patent, any trademark. GitHub shows "Other": it classifies no
