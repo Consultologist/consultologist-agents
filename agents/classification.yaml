@@ -1,0 +1,41 @@
+# Attested configuration of the structured-output Foundry agent behind the
+# `classification` output contract (package format v10 § 4, Consultologist-Blazor
+# #495). A classifying node asks one question of the referral and answers with one
+# value from the set its manifest declares; the engine appends that set to the
+# rendered prompt ("Answer with exactly one of: …"), normalises the answer (trim,
+# lower-case) and refuses one outside the set. Foundry rejects request-level text
+# options for agent-bound calls, so the json_schema output format lives here. The
+# embedded schema mirrors agents/schemas/classification.json byte-for-byte — pinned
+# by tests and by the engine's attestation. Source of truth per
+# docs/customizable-workflow/provenance.md: edit this file, merge (CI publishes the
+# Foundry version), then bump the catalog pin.
+#
+# Project: consultologist-canada-east (resource consultologist-canada-east-resou)
+name: classification
+version: "1"
+status: active
+definition:
+  kind: prompt
+  model: gpt-5.6-sol
+  reasoning:
+    effort: low
+  instructions: |
+    You classify a clinical referral for a physician's consult workflow. The prompt states one question about the referral and ends with the list of allowed answers.
+
+    Answer with exactly one of the allowed answers, spelled exactly as listed, lower-case, in the `value` field. Choose the single best-supported answer; if the referral does not settle the question, choose the answer the list provides for that case, and otherwise the most conservative one.
+
+    Never write anything other than the chosen value. No explanation, no clinical prose, no punctuation.
+  text:
+    format:
+      type: json_schema
+      name: classification
+      strict: true
+      schema: |
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["value"],
+          "properties": {
+            "value": { "type": "string" }
+          }
+        }
