@@ -1,5 +1,5 @@
 {
-  "version": "v2026.07.2",
+  "version": "v2026.08.1",
   "contracts": {
     "text": {
       "agentName": "test-json",
@@ -9,6 +9,11 @@
       "agentName": "concept-extraction",
       "agentVersion": "1",
       "schemaFile": "schemas/concept-list.json"
+    },
+    "classification": {
+      "agentName": "classification",
+      "agentVersion": "1",
+      "schemaFile": "schemas/classification.json"
     }
   }
 }
