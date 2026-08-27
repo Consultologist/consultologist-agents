@@ -3,6 +3,16 @@ name: Publish agents
 on:
   push:
     branches: [main]
+  # Republish after a failed run, without a content change: the paths given
+  # here stand in for the merge commit's diff (a failed Foundry create leaves
+  # nothing published, so re-running the same content is safe — the registry
+  # refuses an overwrite regardless).
+  workflow_dispatch:
+    inputs:
+      paths:
+        description: "Space-separated paths to treat as changed, e.g. agents/classification.yaml agents/output-contracts.json"
+        required: true
+        type: string
 
 permissions:
   id-token: write
@@ -25,7 +35,11 @@ jobs:
         id: diff
         run: |
           set -euo pipefail
-          CHANGED=$(git diff --name-only HEAD^ HEAD 2>/dev/null || git show --name-only --format= HEAD)
+          if [ -n "${{ github.event.inputs.paths }}" ]; then
+            CHANGED=$(echo "${{ github.event.inputs.paths }}" | tr ' ' '\n')
+          else
+            CHANGED=$(git diff --name-only HEAD^ HEAD 2>/dev/null || git show --name-only --format= HEAD)
+          fi
           echo "changed<<EOF2" >> "$GITHUB_OUTPUT"
           echo "$CHANGED" >> "$GITHUB_OUTPUT"
           echo "EOF2" >> "$GITHUB_OUTPUT"
@@ -46,9 +60,15 @@ jobs:
             NAME=$(basename "$YAML" .yaml)
             VERSION=$(python3 -c "import yaml,sys; print(yaml.safe_load(open(sys.argv[1]))['version'])" "$YAML")
             echo "Publishing $NAME v$VERSION to Foundry…"
+            # The yaml embeds a json_schema as a block scalar (a string, so it
+            # can be pinned byte-for-byte against agents/schemas/*.json); Foundry
+            # wants the schema as an object. Parse it on the way out.
             python3 -c "
           import yaml, json, sys
           m = yaml.safe_load(open('$YAML'))
+          fmt = ((m['definition'].get('text') or {}).get('format') or {})
+          if isinstance(fmt.get('schema'), str):
+              fmt['schema'] = json.loads(fmt['schema'])
           print(json.dumps({'definition': m['definition']}))" > /tmp/body.json
             CREATED=$(az rest --method POST \
               --url "$AI_ENDPOINT/agents/$NAME/versions?api-version=$AI_API_VERSION" \
