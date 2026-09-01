@@ -9,7 +9,7 @@
 # Usage:
 #   ./scripts/publish-output-contracts.sh <storage-account>
 # Example:
-#   ./scripts/publish-output-contracts.sh consultologistpublic
+#   ./scripts/publish-output-contracts.sh consultologistpubcaeast
 set -euo pipefail
 
 CONTAINER="output-contracts"
