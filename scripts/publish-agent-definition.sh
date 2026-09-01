@@ -11,7 +11,7 @@
 # Usage:
 #   ./scripts/publish-agent-definition.sh <storage-account> <agent-name>
 # Example:
-#   ./scripts/publish-agent-definition.sh consultologistpubcaeast concept-extraction
+#   ./scripts/publish-agent-definition.sh consultpubcaeast concept-extraction
 set -euo pipefail
 
 CONTAINER="agent-definitions"

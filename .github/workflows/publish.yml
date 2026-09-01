@@ -21,7 +21,7 @@ permissions:
 env:
   AI_ENDPOINT: https://consultologist-canada-east-resou.services.ai.azure.com/api/projects/consultologist-canada-east
   AI_API_VERSION: v1
-  REGISTRY_ACCOUNT: consultologistpubcaeast
+  REGISTRY_ACCOUNT: consultpubcaeast
 
 jobs:
   publish:
