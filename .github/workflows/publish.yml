@@ -16,7 +16,10 @@ on:
 
 permissions:
   id-token: write
-  contents: read
+  # Consultologist/Consultologist-Blazor#717: the catalog publish also cuts a
+  # GitHub Release for the version, so an output-contracts ref links to a
+  # versioned release page rather than a raw blob.
+  contents: write
 
 env:
   AI_ENDPOINT: https://consultologist-canada-east-resou.services.ai.azure.com/api/projects/consultologist-canada-east
@@ -100,3 +103,23 @@ jobs:
       - name: Publish catalog if changed
         if: contains(steps.diff.outputs.changed, 'agents/output-contracts.json')
         run: ./scripts/publish-output-contracts.sh "$REGISTRY_ACCOUNT"
+
+      # A GitHub Release for the catalog version so an output-contracts ref links
+      # to a versioned release page rather than a raw blob. The tag is namespaced
+      # (output-contracts-vX) because this repo also carries per-agent versions.
+      # Idempotent, tagged at the publishing commit, going-forward only.
+      - name: Cut a GitHub Release for the catalog version
+        if: contains(steps.diff.outputs.changed, 'agents/output-contracts.json')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          VERSION=$(python3 -c "import json;print(json.load(open('agents/output-contracts.json'))['version'])")
+          TAG="output-contracts-$VERSION"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists — nothing to do."
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" \
+              --title "output-contracts $VERSION" \
+              --notes "Published output-contracts catalog $VERSION."
+          fi
