@@ -1,0 +1,34 @@
+{
+  "version": "v2026.10.1",
+  "formats": {
+    "prose": {
+      "file": "formats/prose.json",
+      "agentName": "test-json",
+      "agentVersion": 48
+    },
+    "classification": {
+      "file": "formats/classification.json",
+      "agentName": "classification",
+      "agentVersion": 1
+    },
+    "concept-list": {
+      "file": "formats/concept-list.json",
+      "agentName": "concept-extraction",
+      "agentVersion": 1
+    },
+    "rendered": {
+      "file": "formats/rendered.json"
+    },
+    "terms-subset": {
+      "file": "formats/terms-subset.json",
+      "op": "terms-subset"
+    }
+  },
+  "producers": {
+    "custom": {
+      "agentName": "custom-json",
+      "agentVersion": 1,
+      "trailer": "Answer with one JSON object conforming to this schema."
+    }
+  }
+}

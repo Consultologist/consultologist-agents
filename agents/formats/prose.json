@@ -1,0 +1,6 @@
+{
+  "type": "text",
+  "producer": "attested",
+  "outputMacros": true,
+  "description": "Consult prose: the agent's free text, composed with the node's placed macros."
+}
