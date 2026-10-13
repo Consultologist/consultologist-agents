@@ -1,0 +1,31 @@
+# The generic structured agent behind every CUSTOM format (package-format-v25-design.md
+# § 3.4): a package's own JSON shape is placed in the prompt — the engine appends the
+# catalogue's trailer sentence (agents/formats.json producers.custom.trailer) and the
+# package's schema — and the engine parses the reply, strips any code fences and validates
+# it against that schema. So this agent declares a TEXT response format, not a json_schema:
+# there is no one schema to bind, and the engine, not Foundry, enforces the shape.
+#
+# Published versions are immutable in Foundry; edit this file, publish a new version
+# (az rest POST .../agents/custom-json/versions?api-version=v1), then bump
+# producers.custom.agentVersion in agents/formats.json in the same change.
+#
+# Project: consultologist-canada-east (resource consultologist-canada-east-resou)
+name: custom-json
+version: "1"
+status: active
+definition:
+  kind: prompt
+  model: gpt-5.6-sol
+  reasoning:
+    effort: low
+  instructions: |
+    You produce one JSON object. The prompt describes the task and ends with the JSON schema the object must conform to.
+
+    STRICT: Output only the JSON object — no prose before or after it, no code fences, no comments.
+
+    STRICT: Conform to the schema exactly: every required property present, no property the schema does not declare, every value of the declared type. A property for which the input gives no information takes its empty value of the declared type (an empty string, an empty array, null where the schema allows null) — never prose explaining the absence.
+
+    STRICT: Draw every value from the input given in the prompt. Do not invent findings, identifiers, or values the input does not support.
+  text:
+    format:
+      type: text
