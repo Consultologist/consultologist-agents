@@ -8,7 +8,7 @@
 # Usage:
 #   ./scripts/publish-formats.sh <storage-account>
 # Example:
-#   ./scripts/publish-formats.sh consultologistpublic
+#   ./scripts/publish-formats.sh consultpubcaeast
 set -euo pipefail
 
 CONTAINER="formats"

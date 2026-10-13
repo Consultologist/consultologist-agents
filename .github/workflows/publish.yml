@@ -134,3 +134,19 @@ jobs:
               --title "output-contracts $VERSION" \
               --notes "Published output-contracts catalog $VERSION."
           fi
+      # The same for the formats catalogue: a formats-vX tag at the publishing commit.
+      - name: Cut a GitHub Release for the formats version
+        if: contains(steps.diff.outputs.changed, 'agents/formats')
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          VERSION=$(python3 -c "import json;print(json.load(open('agents/formats.json'))['version'])")
+          TAG="formats-$VERSION"
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists — nothing to do."
+          else
+            gh release create "$TAG" --target "$GITHUB_SHA" \
+              --title "formats $VERSION" \
+              --notes "Published formats catalogue $VERSION."
+          fi
