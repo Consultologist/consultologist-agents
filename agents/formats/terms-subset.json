@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "producer": "computed",
+  "outputMacros": false,
+  "description": "Whether every concept of 'of' appears in 'in': pass, the uncovered terms, the untested ones (the v12 check).",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "pass",
+      "uncovered",
+      "untested"
+    ],
+    "properties": {
+      "pass": {
+        "type": "boolean"
+      },
+      "uncovered": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "untested": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    }
+  },
+  "parameters": {
+    "of": {
+      "kind": "node",
+      "format": "concept-list"
+    },
+    "in": {
+      "kind": "node",
+      "format": "concept-list"
+    },
+    "failWith": {
+      "kind": "text"
+    }
+  }
+}

@@ -47,6 +47,19 @@ jobs:
                   assert os.path.exists(os.path.join("agents", sf)), f"{cid}: missing {sf}"
           print(f"catalog {c['version']}: OK ({', '.join(c['contracts'])})")
           PY
+      # v25 (B1, Consultologist-Blazor#1000): the formats catalogue beside the
+      # contracts — the fast failure here; the engine's own reader binds it below.
+      - name: Formats index parses and format files exist
+        run: |
+          python3 - << 'PY'
+          import json, os, re
+          c = json.load(open("agents/formats.json"))
+          assert re.fullmatch(r"v\d{4}\.(0[1-9]|1[0-2])\.[1-9]\d*", c["version"]), f"bad formats version {c['version']}"
+          assert c.get("formats") and c.get("producers", {}).get("custom"), "formats and producers.custom are required"
+          for fid, entry in c["formats"].items():
+              assert os.path.exists(os.path.join("agents", entry["file"])), f"{fid}: missing {entry['file']}"
+          print(f"formats {c['version']}: OK ({', '.join(c['formats'])})")
+          PY
       # #374: a published package version is immutable, but whether it still
       # LOADS is not — the package carries a copy of each schema and the engine
       # re-matches it against the live catalog on every load. Changing a contract
@@ -69,3 +82,10 @@ jobs:
         # reads.
         timeout-minutes: 10
         run: dotnet run -v q --file engine/scripts/check-catalog-strands-packages.cs -- agents
+      # v25 (B1): the formats catalogue binds under the engine's own reader —
+      # every file valid, every attested entry's agent declaring the entry's
+      # shape as its response format at the index's version, every op one the
+      # engine publishes. One definition for CI and the engine.
+      - name: The formats catalogue binds
+        timeout-minutes: 10
+        run: dotnet run -v q --file engine/scripts/check-formats-catalog.cs -- agents

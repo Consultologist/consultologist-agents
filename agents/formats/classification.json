@@ -1,0 +1,11 @@
+{
+  "type": "enum",
+  "producer": "attested",
+  "outputMacros": false,
+  "description": "One value from the answer set the node supplies through with: { values: [...] } (the v10 classifier).",
+  "parameters": {
+    "values": {
+      "kind": "values"
+    }
+  }
+}

@@ -16,6 +16,17 @@ Merging to `main` IS the publish event:
   (`agent-definitions/{name}/{version}/definition.yaml`).
 - A changed `agents/output-contracts.json` → CI publishes the catalog
   version (schemas first, catalog last, immutable versions).
+- A changed `agents/formats.json` or `agents/formats/*.json` → CI publishes the
+  **formats catalogue** version (format files first, index last, immutable
+  versions) to the `formats` container. The formats catalogue (specVersion 25,
+  `package-format-v25.md` § The catalogue) binds each format — prose,
+  classification, concept-list, rendered, terms-subset — to its agent, its
+  engine operation, or nothing, and `producers.custom` to the generic
+  `custom-json` agent every package-local format goes through. CI binds it
+  with the engine's own reader (`check-formats-catalog.cs`): every file valid,
+  every attested entry's agent declaring the entry's shape as its response
+  format at the index's version. `output-contracts.json` keeps publishing
+  beside it until the engine loads formats.
 
   Gated by the **stranding check** (#374): a published package version is
   immutable, but whether it still *loads* is not — the package carries a

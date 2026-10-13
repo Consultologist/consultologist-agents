@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "producer": "attested",
+  "outputMacros": false,
+  "description": "Clinical concepts named in the input, each a SNOMED CT term with its id and type (the concept-list contract).",
+  "schema": {
+    "type": "object",
+    "additionalProperties": false,
+    "required": [
+      "concepts"
+    ],
+    "properties": {
+      "concepts": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "term",
+            "type",
+            "id",
+            "isSnomedConcept",
+            "isActive",
+            "support"
+          ],
+          "properties": {
+            "term": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string"
+            },
+            "id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "isSnomedConcept": {
+              "type": "boolean"
+            },
+            "isActive": {
+              "type": "boolean"
+            },
+            "support": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          }
+        }
+      }
+    }
+  }
+}

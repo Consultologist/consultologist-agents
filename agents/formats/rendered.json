@@ -1,0 +1,6 @@
+{
+  "type": "text",
+  "producer": "rendered",
+  "outputMacros": false,
+  "description": "The rendered prompt's bytes, verbatim \u2014 no agent is called (the v12 template kind)."
+}
