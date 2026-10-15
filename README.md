@@ -20,7 +20,7 @@ Merging to `main` IS the publish event:
   **formats catalogue** version (format files first, index last, immutable
   versions) to the `formats` container. The formats catalogue (specVersion 25,
   `package-format-v25.md` § The catalogue) binds each format — prose,
-  classification, concept-list, rendered, terms-subset — to its agent, its
+  classification, concept_list, rendered, terms_subset — to its agent, its
   engine operation, or nothing, and `producers.custom` to the generic
   `custom-json` agent every package-local format goes through. CI binds it
   with the engine's own reader (`check-formats-catalog.cs`): every file valid,

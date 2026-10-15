@@ -32,11 +32,11 @@
   "parameters": {
     "of": {
       "kind": "node",
-      "format": "concept-list"
+      "format": "concept_list"
     },
     "in": {
       "kind": "node",
-      "format": "concept-list"
+      "format": "concept_list"
     },
     "failWith": {
       "kind": "text"

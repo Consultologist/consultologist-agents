@@ -1,5 +1,5 @@
 {
-  "version": "v2026.10.1",
+  "version": "v2026.10.2",
   "formats": {
     "prose": {
       "file": "formats/prose.json",
@@ -11,17 +11,17 @@
       "agentName": "classification",
       "agentVersion": 1
     },
-    "concept-list": {
-      "file": "formats/concept-list.json",
+    "concept_list": {
+      "file": "formats/concept_list.json",
       "agentName": "concept-extraction",
       "agentVersion": 1
     },
     "rendered": {
       "file": "formats/rendered.json"
     },
-    "terms-subset": {
-      "file": "formats/terms-subset.json",
-      "op": "terms-subset"
+    "terms_subset": {
+      "file": "formats/terms_subset.json",
+      "op": "terms_subset"
     }
   },
   "producers": {
