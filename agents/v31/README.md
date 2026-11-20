@@ -6,8 +6,8 @@ This directory is the agents catalogue the engine reads at specVersion 31
 a `$id`), `bindings.json` (which attested agent serves which format for the
 `generated` producer, and the custom-format agent, with no instructions) and
 `agents.json` (per attested agent version, the `strictRejects` list that
-part 02 § 3.5 step 5 takes from the attested
-definition; it sits here because an existing `agents/<name>.yaml` cannot
+step 5 of `package-format-v31.md` chapter 2 § 2.3.5, in
+`consultologist-package-format`, takes from the attested definition; it sits here because an existing `agents/<name>.yaml` cannot
 change without a new Foundry version). `agents/judgement.yaml` is the one new
 attested agent. Run `python3 scripts/check-v31.py` to check all of it.
 
@@ -15,8 +15,10 @@ attested agent. Run `python3 scripts/check-v31.py` to check all of it.
 
 The engine at specVersion 30 still reads `agents/formats.json`,
 `agents/formats/*.json`, `agents/output-contracts.json`, `agents/schemas/*.json`
-and the existing `agents/*.yaml`, so none of them changes. The design's
-"replacing `agents/formats.json`" happens when 30 retires; until then both
+and the existing `agents/*.yaml`, so none of them changes. The
+[design](https://github.com/Consultologist/Consultologist-Blazor/blob/def6f6cf/docs/customizable-workflow/package-format-v31/02-types-and-inputs.md)
+has these formats "replacing `agents/formats.json`"; that happens when 30
+retires, and until then both
 catalogues live side by side and `scripts/check-v31.py` checks that the 30 files
 are byte-identical to `origin/main`.
 
@@ -32,12 +34,13 @@ repeated here; `bindings.json` names the ones a model writes.
 ## The version
 
 `v2026.12.1`, in `bindings.json`, `agents.json` and every `$id`, is the
-design's example version. The release sets the real one.
+example version `package-format-v31.md` uses. The release sets the real one.
 
 ## Readings taken while writing
 
 The judgement agent's rule for a question the text does not settle (answer
-false, say so in the reason) is this catalogue's wording, not the design's.
-`strictRejects` holds `["format"]` for every bound agent version, from the
-design's example of what strict mode rejects (part 02 § 3.5), to be confirmed
+false, say so in the reason) is this catalogue's wording; the format
+specification gives no such rule. `strictRejects` holds `["format"]` for every
+bound agent version, from the example of what strict mode rejects in
+`package-format-v31.md` chapter 2 § 2.3.5 (`format: "date"`), to be confirmed
 against the provider at release.

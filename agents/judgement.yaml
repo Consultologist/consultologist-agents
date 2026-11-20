@@ -1,10 +1,10 @@
 # Attested configuration of the structured-output Foundry agent behind the
-# built-in `judgement` format (package format v31, part 02 § 4,
-# Consultologist-Blazor#1497). A node whose format is `judgement` asks one
+# built-in `judgement` format (package-format-v31.md chapter 2 § 2.4, in
+# consultologist-package-format; Consultologist-Blazor#1497). A node whose format is `judgement` asks one
 # yes-or-no question of the text it is given and answers with `answer` (true for
 # yes) and a `reason` of a sentence or two drawn from that text; a macro's `if`
 # reads `node.<id>.value.answer`. The embedded schema is the built-in `judgement`
-# as a model receives it (part 02 § 3.5: `$schema`, `$id` and `title` removed,
+# as a model receives it (chapter 2 § 2.3.5: `$schema`, `$id` and `title` removed,
 # `reason` a plain string, each `description` kept, a referenced text format's
 # description first). This agent is published by the release, not by the branch
 # that adds this file: its Foundry version is created when the contracts release
