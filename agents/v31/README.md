@@ -33,3 +33,11 @@ repeated here; `bindings.json` names the ones a model writes.
 
 `v2026.12.1`, in `bindings.json`, `agents.json` and every `$id`, is the
 design's example version. The release sets the real one.
+
+## Readings taken while writing
+
+The judgement agent's rule for a question the text does not settle (answer
+false, say so in the reason) is this catalogue's wording, not the design's.
+`strictRejects` holds `["format"]` for every bound agent version, from the
+design's example of what strict mode rejects (part 02 § 3.5), to be confirmed
+against the provider at release.

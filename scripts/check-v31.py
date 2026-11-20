@@ -14,6 +14,7 @@ ROOT = pathlib.Path(__file__).resolve().parent.parent
 V31 = ROOT / "agents" / "v31"
 BUILT_IN = {"string", "number", "boolean", "date", "plaintext",
             "markdown_block", "markdown_inline", "check_result", "judgement"}
+PLAINTEXT_DESCRIPTION = "Plain text, with no markup."
 DIALECT = "urn:consultologist:spec:31:dialect"
 THIRTY_FILES = ["agents/formats.json", "agents/formats", "agents/output-contracts.json",
                 "agents/schemas", "agents/classification.yaml", "agents/concept-extraction.yaml",
@@ -25,6 +26,20 @@ errors = []
 def check(ok, message):
     if not ok:
         errors.append(message)
+
+
+def check_closed(schema, where):
+    """Every object level lists exactly its properties in required and is closed."""
+    if isinstance(schema, dict):
+        if schema.get("type") == "object":
+            check(schema.get("additionalProperties") is False, f"{where}: additionalProperties is not false")
+            check(sorted(schema.get("required", [])) == sorted(schema.get("properties", {})),
+                  f"{where}: required does not list exactly the properties")
+        for key, value in schema.items():
+            check_closed(value, f"{where}/{key}")
+    elif isinstance(schema, list):
+        for i, value in enumerate(schema):
+            check_closed(value, f"{where}/{i}")
 
 
 def load(path):
@@ -42,6 +57,7 @@ check(sorted(index["items"]) == files and len(set(index["items"])) == len(index[
       f"formats/index.json items {index['items']} are not each format file once: {files}")
 for name in files:
     fmt = load(V31 / "formats" / f"{name}.json")
+    check_closed(fmt, f"{name}.json")
     check(fmt.get("$schema") == DIALECT, f"{name}.json: $schema is not {DIALECT}")
     check(fmt.get("$id") == f"urn:consultologist:format:{name}@{version}",
           f"{name}.json: $id is {fmt.get('$id')}")
@@ -66,12 +82,21 @@ for name, versions in agents["agents"].items():
 
 # judgement.yaml's embedded schema.
 judgement = yaml.safe_load((ROOT / "agents" / "judgement.yaml").read_text(encoding="utf-8"))
-schema = json.loads(judgement["definition"]["text"]["format"]["schema"])
+response_format = judgement["definition"]["text"]["format"]
+check(response_format["name"] == "judgement" and response_format["strict"] is True,
+      "judgement.yaml's response format is not the strict format named judgement")
+schema = json.loads(response_format["schema"])
+check_closed(schema, "judgement.yaml schema")
+check(schema["properties"]["reason"]["description"].startswith(PLAINTEXT_DESCRIPTION),
+      "judgement.yaml's reason description does not begin with the plaintext format's description")
 check(list(schema["properties"]) == ["answer", "reason"], "judgement schema properties are not answer, reason")
 
 # Nothing the engine at 30 reads has changed.
 unchanged = subprocess.run(["git", "diff", "--quiet", "origin/main", "--", *THIRTY_FILES], cwd=ROOT)
 check(unchanged.returncode == 0, "a file the engine at 30 reads differs from origin/main")
+stray = subprocess.run(["git", "status", "--porcelain", "--", *THIRTY_FILES], cwd=ROOT,
+                       capture_output=True, text=True).stdout
+check(not stray, f"a path the engine at 30 reads has untracked or changed files:\n{stray}")
 
 for message in errors:
     print("FAIL:", message)

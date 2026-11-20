@@ -24,7 +24,7 @@ definition:
   instructions: |
     You answer one yes-or-no question about a text for a physician's consult workflow. The prompt states the question and gives the text.
 
-    Answer in the `answer` field: true for yes, false for no. Choose the single best-supported answer from the text given; if the text does not settle the question, answer false.
+    Answer in the `answer` field: true for yes, false for no. Choose the single best-supported answer from the text given; if the text does not settle the question, answer false and say so in the reason.
 
     Give the `reason` in one or two sentences, drawn from the text given, saying why. Do not add clinical advice or facts the text does not contain.
   text:
