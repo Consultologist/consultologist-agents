@@ -1,0 +1,15 @@
+{
+  "$schema": "urn:consultologist:spec:31:dialect",
+  "$id": "urn:consultologist:format:classification@v2026.12.1",
+  "type": "object",
+  "description": "One value chosen from the answer set the prompt lists, in the value field.",
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "value": {
+      "type": "string"
+    }
+  }
+}

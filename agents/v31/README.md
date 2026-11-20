@@ -1,0 +1,35 @@
+# The agents catalogue at specVersion 31
+
+This directory is the agents catalogue the engine reads at specVersion 31
+(preview). It holds the formats the catalogue owns (`formats/index.json`,
+`classification.json`, `concept_list.json`: pure shape, each with `$schema` and
+a `$id`), `bindings.json` (which attested agent serves which format for the
+`generated` producer, and the custom-format agent, with no instructions) and
+`agents.json` (per attested agent version, the `strictRejects` list that
+part 02 § 3.5 step 5 takes from the attested
+definition; it sits here because an existing `agents/<name>.yaml` cannot
+change without a new Foundry version). `agents/judgement.yaml` is the one new
+attested agent. Run `python3 scripts/check-v31.py` to check all of it.
+
+## Beside the catalogue at 30, not in place of it
+
+The engine at specVersion 30 still reads `agents/formats.json`,
+`agents/formats/*.json`, `agents/output-contracts.json`, `agents/schemas/*.json`
+and the existing `agents/*.yaml`, so none of them changes. The design's
+"replacing `agents/formats.json`" happens when 30 retires; until then both
+catalogues live side by side and `scripts/check-v31.py` checks that the 30 files
+are byte-identical to `origin/main`.
+
+## What has no 31 file
+
+30's `prose`, `rendered` and `terms_subset` formats have no file here. `prose`
+is the registry's `plaintext`, `rendered` is `kind: rendered` on a node, and
+`terms_subset` is an operation returning `check_result`. The registry's
+built-in formats (`string`, `number`, `boolean`, `date`, `plaintext`,
+`markdown_block`, `markdown_inline`, `check_result`, `judgement`) are not
+repeated here; `bindings.json` names the ones a model writes.
+
+## The version
+
+`v2026.12.1`, in `bindings.json`, `agents.json` and every `$id`, is the
+design's example version. The release sets the real one.

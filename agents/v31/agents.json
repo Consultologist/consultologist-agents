@@ -1,0 +1,40 @@
+{
+  "version": "v2026.12.1",
+  "agents": {
+    "test-json": {
+      "48": {
+        "strictRejects": [
+          "format"
+        ]
+      }
+    },
+    "judgement": {
+      "1": {
+        "strictRejects": [
+          "format"
+        ]
+      }
+    },
+    "classification": {
+      "1": {
+        "strictRejects": [
+          "format"
+        ]
+      }
+    },
+    "concept-extraction": {
+      "1": {
+        "strictRejects": [
+          "format"
+        ]
+      }
+    },
+    "custom-json": {
+      "1": {
+        "strictRejects": [
+          "format"
+        ]
+      }
+    }
+  }
+}

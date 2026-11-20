@@ -1,0 +1,9 @@
+{
+  "description": [
+    "The agents catalogue's object formats at specVersion 31."
+  ],
+  "items": [
+    "classification",
+    "concept_list"
+  ]
+}

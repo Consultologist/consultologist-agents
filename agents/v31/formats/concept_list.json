@@ -1,0 +1,53 @@
+{
+  "$schema": "urn:consultologist:spec:31:dialect",
+  "$id": "urn:consultologist:format:concept_list@v2026.12.1",
+  "type": "object",
+  "description": "Clinical concepts named in the input, each a SNOMED CT term with its id and type (the concept-list contract).",
+  "required": [
+    "concepts"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "concepts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "term",
+          "type",
+          "id",
+          "isSnomedConcept",
+          "isActive",
+          "support"
+        ],
+        "properties": {
+          "term": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "isSnomedConcept": {
+            "type": "boolean"
+          },
+          "isActive": {
+            "type": "boolean"
+          },
+          "support": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

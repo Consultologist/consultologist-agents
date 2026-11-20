@@ -45,6 +45,13 @@ Merging to `main` IS the publish event:
   It does **not** cover `acct-*` forks, which live in the private account a
   public CI job cannot read.
 
+## The catalogue at specVersion 31 (preview)
+
+`agents/v31/` holds the catalogue the engine reads at specVersion 31, beside
+the one at 30 (which stays as it is until 30 retires): the pure-shape formats,
+`bindings.json`, `agents.json` and the new `agents/judgement.yaml` agent. See
+`agents/v31/README.md`; `python3 scripts/check-v31.py` checks it.
+
 Publishing ≠ activating: the app's `AzureAI__*Version` pins gate which
 version runs. The app's startup attestation compares the deployed Foundry
 agent against the registry mirror — since only this repo's CI can write

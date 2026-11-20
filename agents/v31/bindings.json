@@ -1,0 +1,47 @@
+{
+  "version": "v2026.12.1",
+  "formats": {
+    "plaintext": {
+      "generated": {
+        "agentName": "test-json",
+        "agentVersion": 48
+      }
+    },
+    "markdown_block": {
+      "generated": {
+        "agentName": "test-json",
+        "agentVersion": 48
+      }
+    },
+    "markdown_inline": {
+      "generated": {
+        "agentName": "test-json",
+        "agentVersion": 48
+      }
+    },
+    "judgement": {
+      "generated": {
+        "agentName": "judgement",
+        "agentVersion": 1
+      }
+    },
+    "classification": {
+      "generated": {
+        "agentName": "classification",
+        "agentVersion": 1
+      }
+    },
+    "concept_list": {
+      "generated": {
+        "agentName": "concept-extraction",
+        "agentVersion": 1
+      }
+    }
+  },
+  "custom": {
+    "generated": {
+      "agentName": "custom-json",
+      "agentVersion": 1
+    }
+  }
+}

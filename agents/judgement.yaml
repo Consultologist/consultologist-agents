@@ -1,0 +1,45 @@
+# Attested configuration of the structured-output Foundry agent behind the
+# built-in `judgement` format (package format v31, part 02 § 4,
+# Consultologist-Blazor#1497). A node whose format is `judgement` asks one
+# yes-or-no question of the text it is given and answers with `answer` (true for
+# yes) and a `reason` of a sentence or two drawn from that text; a macro's `if`
+# reads `node.<id>.value.answer`. The embedded schema is the built-in `judgement`
+# as a model receives it (part 02 § 3.5: `$schema`, `$id` and `title` removed,
+# `reason` a plain string, each `description` kept, a referenced text format's
+# description first). This agent is published by the release, not by the branch
+# that adds this file: its Foundry version is created when the contracts release
+# merges, and the catalogue's bindings (agents/v31/bindings.json) name it at
+# version 1. Source of truth per docs/customizable-workflow/provenance.md: edit
+# this file, merge (CI publishes the Foundry version), then bump the catalog pin.
+#
+# Project: consultologist-canada-east (resource consultologist-canada-east-resou)
+name: judgement
+version: "1"
+status: active
+definition:
+  kind: prompt
+  model: gpt-5.6-sol
+  reasoning:
+    effort: low
+  instructions: |
+    You answer one yes-or-no question about a text for a physician's consult workflow. The prompt states the question and gives the text.
+
+    Answer in the `answer` field: true for yes, false for no. Choose the single best-supported answer from the text given; if the text does not settle the question, answer false.
+
+    Give the `reason` in one or two sentences, drawn from the text given, saying why. Do not add clinical advice or facts the text does not contain.
+  text:
+    format:
+      type: json_schema
+      name: judgement
+      strict: true
+      schema: |
+        {
+          "type": "object",
+          "description": "A yes-or-no answer to the question asked, with the reason for it.",
+          "required": ["answer", "reason"],
+          "additionalProperties": false,
+          "properties": {
+            "answer": { "type": "boolean", "description": "true for yes, false for no." },
+            "reason": { "type": "string", "description": "Plain text, with no markup. Why, in a sentence or two, from the text given." }
+          }
+        }
