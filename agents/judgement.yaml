@@ -6,7 +6,7 @@
 # reads `node.<id>.value.answer`. The embedded schema is the built-in `judgement`
 # as a model receives it (chapter 2 § 2.3.5: `$schema`, `$id` and `title` removed,
 # `reason` a plain string, each `description` kept, a referenced text format's
-# description first). This agent is published by the release, not by the branch
+# description first, the two joined by a newline). This agent is published by the release, not by the branch
 # that adds this file: its Foundry version is created when the contracts release
 # merges, and the catalogue's bindings (agents/v31/bindings.json) name it at
 # version 1. Source of truth per docs/customizable-workflow/provenance.md: edit
@@ -40,6 +40,6 @@ definition:
           "additionalProperties": false,
           "properties": {
             "answer": { "type": "boolean", "description": "true for yes, false for no." },
-            "reason": { "type": "string", "description": "Plain text, with no markup. Why, in a sentence or two, from the text given." }
+            "reason": { "type": "string", "description": "Plain text, with no markup.\nWhy, in a sentence or two, from the text given." }
           }
         }
