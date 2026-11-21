@@ -6,8 +6,8 @@
 # reads `node.<id>.value.answer`. The embedded schema is the built-in `judgement`
 # as a model receives it (chapter 2 § 2.3.5: `$schema`, `$id` and `title` removed,
 # `reason` a plain string, each `description` kept, a referenced text format's
-# description first, the two joined by a newline). This agent is published by the release, not by the branch
-# that adds this file: its Foundry version is created when the contracts release
+# description first, the two joined by a newline). This agent is published by the
+# release, not by the branch that adds this file: its Foundry version is created when the contracts release
 # merges, and the catalogue's bindings (agents/v31/bindings.json) name it at
 # version 1. Source of truth per docs/customizable-workflow/provenance.md: edit
 # this file, merge (CI publishes the Foundry version), then bump the catalog pin.
