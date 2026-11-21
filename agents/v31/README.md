@@ -33,7 +33,7 @@ repeated here; `bindings.json` names the ones a model writes.
 
 ## The version
 
-`v2026.12.1`, in `bindings.json`, `agents.json` and every `$id`, is the
+`v2026.12.2`, in `bindings.json`, `agents.json` and every `$id`, is the
 example version `package-format-v31.md` uses. The release sets the real one.
 
 ## Readings taken while writing

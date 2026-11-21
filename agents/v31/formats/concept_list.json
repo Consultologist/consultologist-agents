@@ -1,6 +1,6 @@
 {
   "$schema": "urn:consultologist:spec:31:dialect",
-  "$id": "urn:consultologist:format:concept_list@v2026.12.1",
+  "$id": "urn:consultologist:format:concept_list@v2026.12.2",
   "type": "object",
   "description": "Clinical concepts named in the input, each a SNOMED CT term with its id and type (the concept-list contract).",
   "required": [
@@ -19,6 +19,7 @@
           "id",
           "isSnomedConcept",
           "isActive",
+          "source",
           "support"
         ],
         "properties": {
@@ -39,6 +40,9 @@
           },
           "isActive": {
             "type": "boolean"
+          },
+          "source": {
+            "type": "string"
           },
           "support": {
             "type": [
